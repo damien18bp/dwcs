@@ -9,7 +9,11 @@
  $var = array(
     "uno" => "Primer elemento",
     "dos" => 2.02,
+<<<<<<< HEAD
     "Tres" => FALSE,
+=======
+    "Tres" => FALSE;
+>>>>>>> 371454b (creacion array y index)
     "2" => "ultima inserccion"
  );
 
