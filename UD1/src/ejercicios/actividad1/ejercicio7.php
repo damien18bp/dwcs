@@ -20,7 +20,7 @@ function esAnagrama(string $p1, string $p2): bool
 
     $arrayP1 = str_split($p1);
     foreach ($arrayP1 as $letra) {
-        if (($i = strpos($p2, $letra)) == false) {
+        if (($i = strpos($p2, $letra)) === false) {
             return false;
         } else {
             $p2 = substr_replace($p2, "", $i, 1);
@@ -52,8 +52,8 @@ function esAnagrama(string $p1, string $p2): bool
 
     <div>
         <?php
-        if (isset($_POST['palabra1']) && isset($_POST['palabra2'])){
-            echo esAnagrama($_POST['palabra1'], $_POST['palabra2'])?"SON ANAGRAMAS": "NO SON ANAGRAMAS";
+        if (isset($_POST['palabra1']) && isset($_POST['palabra2'])) {
+            echo esAnagrama($_POST['palabra1'], $_POST['palabra2']) ? "SON ANAGRAMAS" : "NO SON ANAGRAMAS";
         }
         ?>
     </div>
