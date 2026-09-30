@@ -37,6 +37,8 @@
                     $nombre = basename($ejercicio); //TODO Hacer dinamico para subdirectorios
                     echo "<li><a href=\"$ejercicio\">$nombre</a></li>";
                 }
+                $y = "ads";
+            
                 ?>
             </ul>
         </section>
