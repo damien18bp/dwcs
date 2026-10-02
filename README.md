@@ -16,6 +16,7 @@
   - [Ejercicio 6](src/ejercicios/actividad1/ejercicio6.php)
   - [Ejercicio 7](src/ejercicios/actividad1/ejercicio7.php)
   - [Ejercicio 8](src/ejercicios/actividad1/ejercicio8.php)
+  - [Ejercicio 10](src/ejercicios/actividad1/ejercicio10.php)
  ## Ejemplos
  - [Formularios](UD1/src/ejemplos/formulario.php)
  - [Arrays](UD1/src/ejemplos/arrays.php)
