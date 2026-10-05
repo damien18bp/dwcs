@@ -1,7 +1,16 @@
 <?php
 
-function generarNumeros(int $nivel): array
+/**
+ * @param $nivel Si existe, genera un array de $nivel números aleatorios.
+ * @param $existentes Si existe, los números ya generados para ser apliados con 1 número aleatroio mas.
+ */
+function generarNumeros(int $nivel = 1, array $existentes = []): array
 {
+    if (count($existentes) > 0) {
+        $existentes[] = rand(1, 4);
+        return $existentes;
+    }
+
     $numeros = [];
     for ($i = 0; $i < $nivel; $i++) {
         $numeros[] = rand(1, 4);
@@ -19,7 +28,7 @@ if (!empty($nums) && !empty($inNums)) {
     //Falla los números?
     if ($nums !== $inNums) {
         header("Location:ejercicio10_loose.php?nivel=$nivel");
-    }   
+    }
 }
 $nivel++;
 ?>
@@ -52,7 +61,13 @@ $nivel++;
     <h1>Simón dice</h1>
     <div id="numeros">
         <?php
-        $nums = implode("-", generarNumeros($nivel));
+        if (empty($inNums)) {
+            $nums = implode("-", generarNumeros($nivel));
+        } else {
+            $nums = implode("-", generarNumeros(
+                existentes: explode("-", $inNums)
+            ));
+        }
         echo $nums;
         ?>
     </div>
