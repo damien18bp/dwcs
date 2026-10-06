@@ -9,7 +9,7 @@
  $var = array(
     "uno" => "Primer elemento",
     "dos" => 2.02,
-    "Tres" => FALSE;
+    "Tres" => FALSE,
     "2" => "ultima inserccion"
  );
 
