@@ -26,5 +26,5 @@ var_dump($p1);
 
 echo "<br><h1>Perro que hereda de animal</h1>";
 
-$toxo = new Perro();
+$toxo = new Perro(1, "Toxo");
 var_dump($toxo);
