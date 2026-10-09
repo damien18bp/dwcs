@@ -1,6 +1,6 @@
 <?php
 
-class Estudiante extends Persona{
+class Estudiante extends AmplicacionPersona{
 
     public string $grado;
 
