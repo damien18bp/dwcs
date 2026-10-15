@@ -48,4 +48,9 @@ class Direccion{
                 . $this->ciudad . ", "
                 . $this->codigoPostal;
     }
+
+    public function __toString()
+    {
+        throw new \Exception('Not implemented');
+    }
 }
