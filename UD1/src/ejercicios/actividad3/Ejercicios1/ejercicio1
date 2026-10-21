@@ -1,0 +1,10 @@
+CREATE DATABASE IF NOT EXISTS primera_base;
+USE primera_base;
+CREATE TABLE IF NOT EXISTS usuarios(
+	nombre VARCHAR(60) NOT NULL,
+    apellido1 VARCHAR(100) NOT NULL,
+    apellido2 VARCHAR(100) NULL,
+    nicUsuario VARCHAR(30) UNIQUE NOT NULL,
+    correo VARCHAR(320) NOT NULL UNIQUE,
+    contrasenha VARCHAR(255) NOT NULL,
+);
