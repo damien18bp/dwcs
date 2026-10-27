@@ -1,39 +1,49 @@
 <?php
-require 'conexion.php';
+//realiza la conexión con la base de datos
+require 'bd.php';
+$conexion = getConexion();
+
 
 $mensaje = "";
 
+//Comprueba que el formulario se ha enviado correctamente
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+    // recoge todos los datos introducidos. trim (quita espacios)
     $nombre = trim($_POST["nombre"]);
     $apellido1 = trim($_POST["apellido1"]);
     $apellido2 = trim($_POST["apellido2"]);
-    $nic = trim($_POST["nic"]);
+    $nicUsuario = trim($_POST["nicUsuario"]);
     $correo = trim($_POST["correo"]);
     $password = $_POST["password"];
 
-    // Validaciones básicas
     if (
-        empty($nombre) || empty($apellido1) || empty($nic) ||
-        empty($correo) || empty($password)
+        //si hay alguna variable vacia salta un error
+        empty($nombre) || empty($apellido1) ||
+        empty($nicUsuario) || empty($correo) || empty($password)
     ) {
         $mensaje = "Faltan campos obligatorios.";
     } elseif (
+        //si hay alguna variable con mas caracteres de los permitidos lo informa
         strlen($nombre) > 60 ||
         strlen($apellido1) > 100 ||
         strlen($apellido2) > 100 ||
-        strlen($nic) > 30 ||
+        strlen($nicUsuario) > 30 ||
         strlen($correo) > 320
     ) {
         $mensaje = "Alguno de los campos supera la longitud permitida.";
+        
+        //comprueba que el correo este en un formato valido
     } elseif (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
-        $mensaje = "El correo no es válido.";
+        $mensaje = "El correo electrónico no es válido.";
     } else {
+        //convierte la contraeña en formato hash
+        $hash = password_hash($password, PASSWORD_DEFAULT);
 
-        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
+        //prepara la base para insertar los nuevos datos creados
         $sql = "INSERT INTO usuarios 
-                (nombre, apellido1, apellido2, nic, correo, password_hash)
+                (nombre, apellido1, apellido2, nicUsuario, correo, contrasenha)
                 VALUES (?, ?, ?, ?, ?, ?)";
 
         $stmt = $conexion->prepare($sql);
@@ -42,11 +52,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $nombre,
             $apellido1,
             $apellido2,
-            $nic,
+            $nicUsuario,
             $correo,
-            $passwordHash
+            $hash
         );
 
+        //comprueba que todo este correcto y que funcione
         if ($stmt->execute()) {
             header("Location: login.php");
             exit;
@@ -69,32 +80,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 
-    <h1>Registro</h1>
+    <h1>Registro de usuario</h1>
 
     <?php if ($mensaje != ""): ?>
         <p style="color:red;"><?= $mensaje ?></p>
     <?php endif; ?>
 
     <form method="post">
-        <input type="text" name="nombre" placeholder="Nombre" maxlength="60" required>
+        <label>Nombre:<br>
+            <input type="text" name="nombre" maxlength="60" required>
+        </label>
         <br><br>
 
-        <input type="text" name="apellido1" placeholder="Primer apellido" maxlength="100" required>
+        <label>Primer apellido:<br>
+            <input type="text" name="apellido1" maxlength="100" required>
+        </label>
         <br><br>
 
-        <input type="text" name="apellido2" placeholder="Segundo apellido" maxlength="100">
+        <label>Segundo apellido:<br>
+            <input type="text" name="apellido2" maxlength="100">
+        </label>
         <br><br>
 
-        <input type="text" name="nic" placeholder="NIC" maxlength="30" required>
+        <label>NIC de usuario:<br>
+            <input type="text" name="nicUsuario" maxlength="30" required>
+        </label>
         <br><br>
 
-        <input type="email" name="correo" placeholder="Correo" maxlength="320" required>
+        <label>Correo electrónico:<br>
+            <input type="email" name="correo" maxlength="320" required>
+        </label>
         <br><br>
 
-        <input type="password" name="password" placeholder="Contraseña" required>
+        <label>Contraseña:<br>
+            <input type="password" name="password" required>
+        </label>
         <br><br>
 
-        <button type="submit">Registrarse</button>
+        <button type="submit">Registrarme</button>
     </form>
 
     <p><a href="login.php">Ya tengo cuenta</a></p>
