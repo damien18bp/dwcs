@@ -10,69 +10,86 @@ Crea una función que reciba un array de objetos de tipo Identificable y muestre
  */
 
 
- interface Identificable{
-    public function getIdentificador():string;
- }
+interface Identificable
+{
+    public function getIdentificador(): string;
+}
 
 
-abstract class PersonaAbstracta{
+abstract class PersonaAbstracta
+{
     protected int $edad;
     protected string $nombre;
 
-    public function __construct($nombre, $edad){
+    public function __construct($nombre, $edad)
+    {
         $this->nombre = $nombre;
         $this->edad = $edad;
     }
 
-    public function cumplirAnos(){
+    public function cumplirAnos()
+    {
         $this->edad++;
     }
 
-    public abstract function mostrarInformacion():string;
-    public abstract function esMayorDeEdad():bool;
+    public abstract function mostrarInformacion(): string;
+    public abstract function esMayorDeEdad(): bool;
 }
 
 
- class Profesor extends PersonaAbstracta
- {
- 
-     public string $especialidad;
- 
-     public function __construct(string $especialidad, string $nombre, int $edad)
-     {
-         $this->especialidad = $especialidad;
-         parent::__construct($nombre, $edad);
-     }
- 
-     public function mostrarInformacion():string{
-         return "Soy el profesor ". $this->nombre;
-     }
+class Profesor extends PersonaAbstracta
+{
 
-     public function esMayorDeEdad():bool{
+    public string $especialidad;
+    private string $id;
+
+    public function __construct(string $especialidad, string $nombre, int $edad)
+    {
+        $this->especialidad = $especialidad;
+        $this->id = hash(OPENSSL_ALGO_MD5, $especialidad . $nombre . $edad . rand(0, 4000));
+        parent::__construct($nombre, $edad);
+    }
+
+    public function mostrarInformacion(): string
+    {
+        return "Soy el profesor " . $this->nombre;
+    }
+
+    public function esMayorDeEdad(): bool
+    {
         return $this->edad > 17;
+    }
+
+    public function getIdentificador():string{
+        return $this->id;
      }
- }
- 
+}
+
 class Estudiante extends PersonaAbstracta implements Identificable
 {
 
     public string $grado;
     private array $calificaciones;
+    private string $id;
 
     public function __construct(string $grado, string $nombre, int $edad,  array $notas = [])
     {
         $this->grado = $grado;
         $this->calificaciones = $notas;
+        $this->id = hash(OPENSSL_ALGO_MD5, $grado . $nombre . $edad . rand(0, 4000));
+
         parent::__construct($nombre, $edad);
     }
 
-    public function mostrarInformacion():string{
-        return "Soy el estudiante ". $this->nombre;
+    public function mostrarInformacion(): string
+    {
+        return "Soy el estudiante " . $this->nombre;
     }
 
-    public function esMayorDeEdad():bool{
+    public function esMayorDeEdad(): bool
+    {
         return $this->edad >= 18;
-     }
+    }
 
     /**
      * 
@@ -92,15 +109,21 @@ class Estudiante extends PersonaAbstracta implements Identificable
     {
         return Estudiante::calcularPromedio($this->calificaciones);
     }
+
+    public function getIdentificador(): string
+    {
+        return $this->id;
+    }
 }
 
 
 
-function mostrarIds(array $identificables){
+function mostrarIds(array $identificables)
+{
 
-    foreach($identificables as $obj){
-        if($obj instanceof Identificable){
-            echo $obj->getIdentificador()."<br>";
+    foreach ($identificables as $obj) {
+        if ($obj instanceof Identificable) {
+            echo $obj->getIdentificador() . "<br>";
         }
     }
 }

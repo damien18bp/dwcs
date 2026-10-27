@@ -1,0 +1,13 @@
+CREATE DATABASE ejercicio3_1;
+USE ejercicio3_1;
+
+CREATE TABLE usuarios(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nic VARCHAR(30) NOT NULL UNIQUE,
+    email VARCHAR(320) NOT NULL UNIQUE,
+    nombre VARCHAR(60) NOT NULL,
+    apellido1 VARCHAR(100) NOT NULL,
+    apellido2 VARCHAR(100),
+    contrasena TEXT(256) NOT NULL
+
+);
