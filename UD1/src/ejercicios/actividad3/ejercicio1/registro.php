@@ -52,20 +52,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <h1>Registro</h1>
     <form action="" method="post">
+        //bloque para introduccion de nombre
         <label for="nombre">Nombre</label>
         <input type="text" name="nombre"><br>
+
+        //bloque para introduccion de apellido1
         <label for="apellido1">Apellido</label>
         <input type="text" name="apellido1"><br>
+
+        //bloque de introduccion de apellido2
         <label for="apellido2">Apellido</label>
         <input type="text" name="apellido2"><br>
+
+        //bloque de introduccion para email
         <label for="email">Correo</label>
         <input type="email" name="email"><br>
+
+        //bloque de introduccion para nombre de usuario
         <label for="nic">Nomrbe usuario</label>
         <input type="text" name="nic"><br>
+
+        //bloque de introduccion para contraseña
         <label for="pass1">Contraseña</label>
         <input type="password" name="pass1"><br>
+
+        //bloque de introduccion para confirmacion de contraseña
         <label for="pass2">Repita la contraseña</label>
         <input type="password" name="pass2"><br>
+
+        //boton para enviar informacion
         <button type="submit">Guardar</button>
     </form>
     <?php

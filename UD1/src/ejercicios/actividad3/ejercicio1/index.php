@@ -1,7 +1,8 @@
 <?php
 require_once "bd.php";
+
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        //Valido
+        //Validamos los datos del nombre de usuario y contraseña
         $nic = $_POST['nic']??'';
         $pass = $_POST['pass']??'';
         $error = [];
@@ -13,7 +14,7 @@ require_once "bd.php";
             $error[] = "El nic es un campo obligatorio.";
         }
 
-        //Recupero nic de la BD
+        //sI no exsiste error recupero nic de la BD
         if(count($error) === 0){
             $usuario = getUserByNic($nic);
             if(!$usuario || $usuario['contrasena'] != sha1($pass)){
@@ -26,6 +27,7 @@ require_once "bd.php";
         }
         //Compruebo contrasena y si es correcto
     }
+    
 ?>
 <!DOCTYPE html>
 <html lang="es">
